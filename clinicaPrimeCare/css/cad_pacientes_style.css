@@ -1,0 +1,103 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+nav {
+    background-color: #129383;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/*nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+} opcional */
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+    padding: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: #245276;
+    margin-bottom: 5px;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-group input[type="date"] {
+    padding: 10px 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+button[type="submit"] {
+    background-color: #05c99e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #129383;
+}
+
+.success-message {
+    position: fixed;
+    top: 185px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #5959da ;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 0 5px 5px #7b96aa;
+}
+
+.success-message.show {
+    display: block;
+}
+.success-message.hide {
+    display: none;
+}
+

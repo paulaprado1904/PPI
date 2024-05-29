@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos por Marca</title>
+</head>
+<body>
+    <h2>Selecione uma marca:</h2>
+    <select id="marcaSelect">
+        <option value="marca1">Dell</option>
+        <option value="marca2">Marca 2</option>
+        <option value="marca3">Marca 3</option>
+        <!-- Adicione mais opções conforme necessário -->
+    </select>
+
+    <div id="produtosContainer"></div>
+
+    <script>
+        document.getElementById('marcaSelect').addEventListener('change', async function() {
+            const marca = this.value;
+            const response = await fetch(`seu_script_php.php?marca=${marca}`);
+            const data = await response.json();
+            const produtosContainer = document.getElementById('produtosContainer');
+            produtosContainer.innerHTML = ''; // Limpa o conteúdo anterior
+
+            if (data.length > 0) {
+                const ul = document.createElement('ul');
+                data.forEach(produto => {
+                    const li = document.createElement('li');
+                    li.textContent = `${produto.nome}: ${produto.descricao}`;
+                    ul.appendChild(li);
+                });
+                produtosContainer.appendChild(ul);
+            } else {
+                produtosContainer.textContent = 'Nenhum produto encontrado para esta marca.';
+            }
+        });
+    </script>
+</body>
+</html>

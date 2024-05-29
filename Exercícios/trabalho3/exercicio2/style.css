@@ -1,0 +1,108 @@
+body {
+    background-color: gray;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #444;
+    line-height: 1.5;
+    width: 60%;
+    margin: 0 auto;
+    padding: 2% 0;
+}
+
+main {
+    background-color: white;
+    border-radius: 10px;
+}
+
+h1,h2,h3 {
+    color: rgb(140, 76, 8);
+    padding: 10px;
+}
+
+section {
+    margin-top: 0px;
+    padding-bottom: 5px;
+    border-top: solid 1px gray;
+    padding: 10px;
+}
+
+input:invalid + span::after{
+    content: "✖";
+    color: red;
+}
+
+input:valid + span::after{
+    content: "✔";
+    color: green;
+}
+
+.tituloDestacado {
+
+    color: rgb(8, 128, 88);
+}
+
+td img{
+    border-radius: 10px;
+}
+fieldset input + label{
+    font-weight: bold;
+}
+
+a:hover,
+a:active{
+    background-color: blueviolet;
+    color: lightslategray;
+    border-bottom: 1px solid black;
+}
+
+/* Estiliza um parágrafo que contém um span */
+td:has(> img) {
+
+    justify-content: center;
+    align-items: center;
+    background-color:burlywood;
+    margin: 5px;
+    border-radius: 5px;
+    }
+    
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: aqua;
+        margin: 5px;
+        border-radius: 5px;
+      }
+
+/* Estiliza o primeiro filho de uma lista ordenada */
+section h1:first-child {
+    font-weight: bold;
+    font-size: 40px;
+}
+/* Estiliza o primeiro parágrafo dentro de um div */
+div p:first-of-type {
+    color: red;
+}
+
+:is(select, h1,fieldset) {
+    margin-left: 20px;
+    padding-left: 0;
+    list-style-type: square;
+    font-weight: bold;
+}
+
+#tit {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* Escolha uma fonte moderna */
+font-size: 36px; /* Tamanho grande para impacto */
+font-weight: bold; /* Deixa o texto em negrito */
+color: #444; /* Cor do texto um pouco mais escuro */
+text-align: center; /* Alinha o texto ao centro */
+text-transform: uppercase; /* Transforma o texto em maiúsculas */
+padding: 10px 0; /* Adiciona espaçamento interno acima e abaixo */
+background-color: #f9f9f9; /* Cor de fundo suave */
+border-bottom: 2px solid #ddd; /* Borda inferior sólida e leve */
+margin-bottom: 30px; /* Espaçamento abaixo do título */
+letter-spacing: 1px; /* Espaçamento entre as letras */
+text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); /* Sombra sutil para destacar o texto */
+transition: all 0.3s ease-in-out;
+ }
+

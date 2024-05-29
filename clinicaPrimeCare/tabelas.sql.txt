@@ -1,0 +1,52 @@
+CREATE TABLE PESSOA (
+    codigo INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    sexo ENUM('Masculino', 'Feminino'),
+    email VARCHAR(30),
+    telefone VARCHAR(20),
+    cep VARCHAR(10),
+    logradouro VARCHAR(100),
+    cidade VARCHAR(40),
+    estado VARCHAR(2)
+) ENGINE=InnoDB;
+
+CREATE TABLE FUNCIONARIO (
+    data_contrato DATE,
+    salario DECIMAL(10, 2),
+    senha_hash VARCHAR(255),
+    codigo INT PRIMARY KEY,
+    FOREIGN KEY (codigo) REFERENCES PESSOA(codigo)
+) ENGINE=InnoDB;
+
+CREATE TABLE MEDICO (
+    especialidade VARCHAR(100),
+    crm VARCHAR(20),
+    codigo INT PRIMARY KEY,
+    FOREIGN KEY (codigo) REFERENCES FUNCIONARIO(codigo)
+) ENGINE=InnoDB;
+
+CREATE TABLE PACIENTE (
+    peso DECIMAL(5, 2),
+    altura DECIMAL(5, 2),
+    tipo_sanguineo VARCHAR(5),
+    codigo INT PRIMARY KEY,
+    FOREIGN KEY (codigo) REFERENCES PESSOA(codigo)
+) ENGINE=InnoDB;
+
+CREATE TABLE AGENDA (
+    codigo INT AUTO_INCREMENT PRIMARY KEY,
+    data DATE,
+    horario TIME,
+    nome VARCHAR(100),
+    sexo ENUM('Masculino', 'Feminino'),
+    email VARCHAR(100),
+    codigo_medico INT,
+    FOREIGN KEY (codigo_medico) REFERENCES MEDICO(codigo)
+) ENGINE=InnoDB;
+
+CREATE TABLE BASE_ENDERECOS (
+    CEP VARCHAR(8) PRIMARY KEY,
+    Logradouro VARCHAR(255),
+    Cidade VARCHAR(100),
+    Estado VARCHAR(50)
+) ENGINE=InnoDB;

@@ -1,0 +1,55 @@
+body{
+    background-image: url("../images/bg2.jpg");
+    background-size: cover; /* ajusta a imagem para cobrir toda a área do body */
+    background-repeat: no-repeat; /* evita a repetição da imagem */
+    background-position: center; /* posiciona a imagem no centro do body */
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+span{
+    color: red;
+    font-weight: bold;
+    font-size: 15px;
+
+}
+body{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+    flex-wrap: wrap;
+}
+main{
+    background-color:white;
+    padding: 15px;
+    margin: 3px;
+    max-width: 220px;
+    border-radius: 10px;
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 350px;
+    flex-basis: 250px;
+}
+
+input{
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0.5px solid gray;
+    margin: 0.5rem 0;
+    padding: 0.4rem;
+}
+
+button{
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+    border: 0.5px solid gray;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.8rem;
+}
+
+div{
+    padding: 5px 0px;
+}

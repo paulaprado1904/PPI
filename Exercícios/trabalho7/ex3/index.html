@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Print Exercício 2</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <label for="altura"> Altura:</label>
+    <input type="text" name="altura" id="nome">
+    <fieldset>
+        <legend>Escolha o sexo:</legend>
+        <div>
+            <input type="radio" name="sexo" id="feminino" value="feminino" checked>
+            <label for="feminino">Feminino</label>
+        </div>
+        <div>
+            <input type="radio" name="sexo" id="masculino" value="masculino">
+            <label for="masculino">Masculino</label>
+        </div>
+    </fieldset>
+    <button type="button"> Calcular o Peso Ideal</button>
+    <p></p>
+    <script>
+        const botao = document.querySelector("button");
+        const altura = document.querySelector("input");
+        const sexo = document.querySelector('input[name="sexo"]:checked');
+        const saida = document.querySelector("p");
+
+        let alturaNumber = parseInt(altura.value);
+        let sexoChoice = sexo.value;
+        botao.onclick = function () {
+        let pesoIdeal =0;    
+        if (sexoChoice === 'feminino'){
+            pesoIdeal = (52 + (0.67 * (alturaNumber - 152.4)));
+        }if(sexoChoice === 'masculino'){
+            pesoIdeal = (52 + (0.67 * (alturaNumber - 152.4)));
+        }
+            saida.textContent = 'Peso Ideal: ' + pesoIdeal;
+        };
+    </script>
+</body>
+
+</html>

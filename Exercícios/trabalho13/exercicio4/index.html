@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rolagem Infinita</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background-color: #dedede;
+      font-family: Helvetica;
+      width: 60%;
+      margin: 0 auto;
+      margin-top: 3rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      color: #888;
+    }
+
+    .item {
+      background-color: white;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .item-image {
+      width: 150px;
+      height: 150px;
+      margin: 0 2rem;
+    }
+
+    .item-name {
+      font: 2em Verdana;
+      color: #888;
+    }
+
+    .item-price {
+      font: 2em Verdana;
+      color: darkgreen;
+      margin-left: 2rem;
+    }
+
+    .item-price::before {
+      content: 'R$ ';
+    }
+  </style>
+</head>
+
+<body>
+
+  <section id="products">
+    <h2>Nossos produtos</h2>
+
+    <template id="template">
+      <div class="item">
+        <img class="item-image" src="images/{{prod-image}}"></img>
+        <span class="item-name">{{prod-name}}</span>
+        <span class="item-price">{{prod-price}}</span>
+      </div>
+    </template>
+
+  </section>
+
+  <script>
+
+function renderProducts(newProducts) {
+  // Obtém a referência para a seção de produtos no HTML
+  const prodsSection = document.getElementById("products");
+  // Obtém o template de produto no HTML
+  const template = document.getElementById("template");
+
+  // Itera sobre cada novo produto
+  for (let product of newProducts) {
+    // Substitui os placeholders no template pelos dados do produto atual
+    let html = template.innerHTML
+      .replace("{{prod-image}}", product.imagePath) // Substitui o placeholder da imagem pelo caminho da imagem do produto
+      .replace("{{prod-name}}", product.name) // Substitui o placeholder do nome pelo nome do produto
+      .replace("{{prod-price}}", product.price); // Substitui o placeholder do preço pelo preço do produto
+
+    // Insere o HTML gerado na seção de produtos
+    prodsSection.insertAdjacentHTML("beforeend", html);
+  };
+}
+
+async function loadProducts() {
+  try {
+    // Faz uma requisição assíncrona para carregar os produtos do servidor
+    let response = await fetch("more-products.php");
+    // Verifica se a requisição foi bem-sucedida
+    if (!response.ok) throw new Error(response.statusText);
+    // Converte a resposta em formato JSON
+    var products = await response.json();
+  } catch (e) {
+    // Em caso de erro, exibe o erro no console e retorna
+    console.error(e);
+    return;
+  }
+
+  // Chama a função para renderizar os produtos na página
+  renderProducts(products);
+}
+
+window.onload = function () {
+  // Quando a janela é completamente carregada, carrega os produtos
+  loadProducts();
+}
+
+window.onscroll = function () {
+  // Quando o usuário rola a página até o final, carrega mais produtos
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    loadProducts();
+  }
+
+}
+
+  </script>
+
+</body>
+
+</html>

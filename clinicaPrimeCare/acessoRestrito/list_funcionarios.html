@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem de Funcionários</title>
+    <!-- Incluindo Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/listagens_style.css">
+    <style>
+       
+    </style>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="cad_funcionarios.html" class="btn btn-light">Novo Funcionário</a></li>
+            <li><a href="cad_pacientes.html" class="btn btn-light">Novo Paciente</a></li>
+            <li><a href="list_funcionarios.html" class="btn btn-light">Listar Funcionários</a></li>
+            <li><a href="list_pacientes.html" class="btn btn-light">Listar Pacientes</a></li>
+            <li><a href="list_enderecos.html" class="btn btn-light">Listar Endereços</a></li>
+            <li><a href="list_agendamentos.html" class="btn btn-light">Listar todos Agendamentos</a></li>
+            <li><a href="list_agendamento_domedico.html" class="btn btn-light">Listar meus Agendamentos</a></li>
+        </ul>
+    </nav>
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">Listagem de Funcionários</h2>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Sexo</th>
+                            <th>Email</th>
+                            <th>Data Contrato</th>
+                            <th>Médico</th>
+                            <th>CRM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+    fetch('list_funcionarios.php')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao obter os funcionários');
+      }
+      return response.json();
+    })
+    .then(funcionarios => {
+      const tableBody = document.querySelector('table tbody');
+      tableBody.innerHTML = '';
+  
+      funcionarios.forEach(funcionario => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${funcionario.nome}</td>
+          <td>${funcionario.sexo}</td>
+          <td>${funcionario.email}</td>
+          <td>${funcionario.data_contrato}</td>
+          <td>${funcionario.e_medico}</td>
+          <td>${funcionario.crm || '-'}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Erro:', error.message);
+    });
+</script>
+</div>
+</body>
+</html>

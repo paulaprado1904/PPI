@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Teste AJAX Simples</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.5rem;
+      background-image: url("images/bg2.jpg");
+      background-size: cover;
+      margin: 0;
+    }
+
+    main {
+      width: 60%;
+      background-color: #fff;
+      border: 0.5px solid #ccc;
+      margin: 0;
+      padding: 2% 4%;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <main>
+    <h1>Faculdade de Computação da UFU</h1>
+    <p>A Faculdade de Computação (FACOM) da Universidade...</p>
+    <p>No início dos anos 2000 foi criado na Faculdade...</p>
+    <button>Clique para carregar mais conteúdo com Ajax</button>
+  </main>
+
+  <script>
+    function loadExtraContent() { // definição da função para carregar o conteúdo adicional.
+      let xhr = new XMLHttpRequest(); // cria um novo objeto XMLHttpRequest para fazer requisições HTTP.
+      xhr.open("GET", "conteudoAdicional.html", true); //obtem o conteúdo adicional do arquivo "conteudoAdicional.html" de forma assíncrona.
+      xhr.onload = function () { // evento que é acionado quando a requisição é concluída.
+        const main = document.querySelector("main"); // guarda a referencia do apontamento da main do documento HTML.
+        main.insertAdjacentHTML("beforeend", xhr.responseText); // insere o conteúdo da resposta da requisição no final da main.
+      };
+      xhr.send(); // envia a requisição.
+    }
+    const button = document.querySelector("button"); // guarda a referencia do apontamento do botão do documento HTML.
+    button.addEventListener("click", loadExtraContent);  // add um ouvinte de evento de clique p carregar o conteúdo adicional.
+  </script>
+  
+</body>
+
+</html>

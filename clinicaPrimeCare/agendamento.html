@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/agendamento.css">
+    <link rel="stylesheet" href="./css/navBar.css">
+    <link rel="icon" href="./images/logo-semfundo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - PrimeCare</title>
+</head>
+
+<body>
+    <header>
+        <div class="center">
+            <div class="logo"><a href="index.html"><img src="./images/logo.png" alt="Logo Clínica Médica"></a></div>
+            <div class="hamburger-container">
+                <div class="hamburger-menu">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="galeria.html">Galeria</a>
+                <a class="active" href="agendamento.html">Agendamento</a>
+                <a href="novoEnd.html">Novo Endereço</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="agendamento-container">
+            <h1>Agendamento Consulta Médica</h1>
+            <form name="form_agendamento" action="agendamento_consulta.php" method="post">
+                <p>Especialidade:
+                    <select id="especialidade" name="especialidade" required title="Selecione uma especialidade">
+                        <!-- Será inserido via JS as opções de especialidades -->
+                    </select>
+                </p>
+                <p>Médico Especialista:
+                    <select id="nome_medico" name="nome_medico" required title="Selecione um médico">
+                        <!-- Será inserido via JS as opções de médico -->
+                    </select>
+                </p>
+                <label for="data_consulta">Data da Consulta:</label>
+                <input type="date" id="data_consulta" name="data_consulta" required>
+
+                <label for="horario_consulta">Horário Disponível:</label>
+                <select id="horario_consulta" name="horario_consulta" required>
+                    <option value="" disabled selected>Selecione um horário</option>
+                    <!-- Horários disponíveis serão inseridos via JS -->
+                </select>
+                
+                <!-- Campo oculto para armazenar o horário selecionado -->
+                <input type="hidden" id="horario_selecionado" name="horario">
+
+                <h2>Dados Pessoais</h2>
+                <p>
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu Nome Completo" required>
+                </p>
+                <p>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu Email" required>
+                </p>
+                <fieldset>
+                    <legend>Sexo</legend>
+                    <div class="options">
+                        <input type="radio" id="feminino" name="sex" value="feminino">
+                        <label class="label_options" for="feminino">Feminino</label>
+                    </div>
+                    <div class="options">
+                        <input type="radio" id="masculino" name="sex" value="masculino">
+                        <label class="label_options" for="masculino">Masculino</label>
+                    </div>
+                </fieldset>
+                <p class="submit">
+                    <input type="submit" value="Cadastrar">
+                </p>
+            </form>
+        </div>
+        <!-- Mensagem de sucesso (inicialmente oculta) -->
+        <div id="successMessage" class="success-message hide">
+            Cadastro realizado com sucesso!
+        </div>
+    </main>
+
+
+    <footer>
+        <p>© 2024 Clinica PrimeCare - Background and logo designed by Freepik</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Função para obter as especialidades do banco de dados via AJAX
+            function obterEspecialidades() {
+                // Criar uma nova requisição AJAX
+                var xhr = new XMLHttpRequest();
+
+                // Configurar a requisição
+                xhr.open('GET', 'obterespecialidades.php', true);
+
+                // Definir o tipo de resposta como JSON
+                xhr.responseType = 'json';
+
+                // Definir a função a ser chamada quando a resposta for recebida
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // Preencher as opções de seleção com as especialidades retornadas
+                        var especialidades = xhr.response;
+                        var selectEspecialidade = document.querySelector('select[name="especialidade"]');
+
+                        // Adicionar a opção "Selecione uma opção" por padrão
+                        var defaultOption = document.createElement('option');
+                        defaultOption.textContent = 'Selecione uma opção';
+                        defaultOption.value = '';
+                        selectEspecialidade.appendChild(defaultOption);
+
+                        especialidades.forEach(function (especialidade) {
+                            var option = document.createElement('option');
+                            option.textContent = especialidade;
+                            option.value = especialidade;
+                            selectEspecialidade.appendChild(option);
+                        });
+                    } else {
+                        // Exibir uma mensagem de erro caso ocorra algum problema na requisição
+                        console.error('Erro ao obter especialidades: ' + xhr.status);
+                    }
+                };
+
+                // Enviar a requisição
+                xhr.send();
+            }
+
+            // Chamar a função para obter as especialidades ao carregar a página
+            obterEspecialidades();
+        });
+
+        // Função para obter os médicos da especialidade selecionada via AJAX
+        function obterMedicos(especialidade) {
+            // Se a especialidade não for selecionada, limpar a lista de médicos
+            if (!especialidade) {
+                limparListaMedicos();
+                return;
+            }
+
+            // Criar uma nova requisição AJAX
+            var xhr = new XMLHttpRequest();
+
+            // Configurar a requisição
+            xhr.open('GET', 'obter_medicos.php?especialidade=' + encodeURIComponent(especialidade), true);
+
+            // Definir o tipo de resposta como JSON
+            xhr.responseType = 'json';
+
+            // Definir a função a ser chamada quando a resposta for recebida
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Limpar a lista de médicos antes de adicionar novas opções
+                    limparListaMedicos();
+
+                    // Verificar se a resposta não está vazia
+                    if (xhr.response) {
+                        var medicos = xhr.response;
+                        var selectMedico = document.querySelector('select[name="nome_medico"]');
+
+                        // Adicionar a opção "Selecionar um médico" por padrão
+                        var defaultOption = document.createElement('option');
+                        defaultOption.textContent = 'Selecionar um médico';
+                        defaultOption.value = '';
+                        selectMedico.appendChild(defaultOption);
+
+                        // Verificar se o retorno é um array
+                        if (Array.isArray(medicos)) {
+                            // Iterar sobre os médicos e adicioná-los à lista
+                            medicos.forEach(function (medico) {
+                                var option = document.createElement('option');
+                                option.textContent = medico;
+                                option.value = medico;
+                                selectMedico.appendChild(option);
+                            });
+                        } else {
+                            console.error('Erro: O retorno não é um array');
+                        }
+                    } else {
+                        console.error('Erro: A resposta está vazia');
+                    }
+                } else {
+                    console.error('Erro ao obter médicos: ' + xhr.status);
+                }
+            };
+
+            // Enviar a requisição
+            xhr.send();
+        }
+
+        // Limpar a lista de médicos
+        function limparListaMedicos() {
+            var selectMedico = document.getElementById('nome_medico');
+            selectMedico.innerHTML = ''; // Limpa a lista, removendo todas as opções
+        }
+
+        // Adicionar um evento de mudança ao campo de seleção de especialidade
+        document.getElementById('especialidade').addEventListener('change', function () {
+            var especialidadeSelecionada = this.value;
+            obterMedicos(especialidadeSelecionada);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Adicionar um evento de mudança ao campo de seleção de data
+            document.getElementById('data_consulta').addEventListener('change', function () {
+                var dataSelecionada = this.value;
+                var nomeMedico = document.getElementById('nome_medico').value;
+                obterHorariosDisponiveis(dataSelecionada, nomeMedico);
+            });
+
+            // Função para obter os horários disponíveis para a data selecionada
+            function obterHorariosDisponiveis(data, nomeMedico) {
+                // Criar uma nova requisição Ajax
+                var xhr = new XMLHttpRequest();
+
+                // Configurar a requisição
+                xhr.open('POST', 'verificar_disponibilidade.php', true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                // Definir a função a ser chamada quando a resposta for recebida
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            console.error('Erro ao obter horários disponíveis: ' + response.error);
+                        } else {
+                            // Preencher as opções de seleção com os horários disponíveis retornados
+                            var horariosDisponiveis = response;
+                            var selectHorario = document.getElementById('horario_consulta');
+                            selectHorario.innerHTML = '';
+
+                            // Adicionar as opções de horários disponíveis ao select
+                            horariosDisponiveis.forEach(function (horario) {
+                                var option = document.createElement('option');
+                                option.textContent = horario;
+                                option.value = horario;
+                                selectHorario.appendChild(option);
+                            });
+                        }
+                    } else {
+                        console.error('Erro ao obter horários disponíveis: ' + xhr.status);
+                    }
+                };
+
+                // Enviar a requisição
+                xhr.send('data=' + encodeURIComponent(data) + '&nome_medico=' + encodeURIComponent(nomeMedico));
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successParam = urlParams.get('success');
+            console.log(successParam, 'alterado por último');
+
+            if (successParam === 'true') {
+                console.log(successParam, 'dentro do if');
+                const successMessage = document.querySelector('.success-message');
+                successMessage.classList.remove('hide');
+                successMessage.classList.add('show'); // Add a class to show the message
+
+                setTimeout(() => {
+                    successMessage.classList.remove('show'); // Remove the class to hide the message
+                    successMessage.classList.add('hide');
+                }, 2000); // 5 seconds
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Adicionar um evento de mudança ao campo de seleção de horário
+            document.getElementById('horario_consulta').addEventListener('change', function () {
+                var horarioSelecionado = this.value;
+                document.getElementById('horario_selecionado').value = horarioSelecionado;
+            });
+        });
+    </script>
+</body>
+
+</html>

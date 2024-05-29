@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionários</title>
+    <link rel="stylesheet" href="../css/cad_funcionarios_style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="cad_funcionarios.html" class="btn btn-light">Novo Funcionário</a></li>
+            <li><a href="cad_pacientes.html" class="btn btn-light">Novo Paciente</a></li>
+            <li><a href="list_funcionarios.html" class="btn btn-light">Listar Funcionários</a></li>
+            <li><a href="list_pacientes.html" class="btn btn-light">Listar Pacientes</a></li>
+            <li><a href="list_enderecos.html" class="btn btn-light">Listar Endereços</a></li>
+            <li><a href="list_agendamentos.html" class="btn btn-light">Listar todos Agendamentos</a></li>
+            <li><a href="list_agendamento_domedico.html" class="btn btn-light">Listar meus Agendamentos</a></li>
+        </ul>
+    </nav>
+
+
+    <div class="container">
+        <h2>Cadastro de Funcionários</h2>
+        <form action="cad_funcionarios.php" method="post">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo">
+                    <option value="" disabled selected hidden>Selecione</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone">
+            </div>
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep">
+            </div>
+            <div class="form-group">
+                <label for="logradouro">Logradouro:</label>
+                <input type="text" id="logradouro" name="logradouro">
+            </div>
+            <div class="form-group">
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade">
+            </div>
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado">
+            </div>
+            <div class="form-group">
+                <label for="inicio_contrato">Data de Início do Contrato:</label>
+                <input type="date" id="inicio_contrato" name="inicio_contrato">
+            </div>
+            <div class="form-group">
+                <label for="salario">Salário:</label>
+                <input type="number" id="salario" name="salario">
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha">
+            </div>
+            <div class="form-group">
+                <label for="tipo_funcionario">Tipo de Funcionário:</label>
+                <select id="tipo_funcionario" name="tipo_funcionario">
+                    <option value="normal">Normal</option>
+                    <option value="medico">Médico</option>
+                </select>
+            </div>
+            <div id="especialidade_field" class="form-group hidden">
+                <label for="especialidade">Especialidade:</label>
+                <input type="text" id="especialidade" name="especialidade">
+            </div>
+            <div id="crm_field" class="form-group hidden">
+                <label for="crm">CRM:</label>
+                <input type="text" id="crm" name="crm">
+            </div>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+    <!-- Mensagem de sucesso (inicialmente oculta) -->
+    <div id="successMessage" class="success-message hide">
+        Cadastro realizado com sucesso!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tipoFuncionarioSelect = document.getElementById('tipo_funcionario');
+            const especialidadeField = document.getElementById('especialidade_field');
+            const crmField = document.getElementById('crm_field');
+
+            // Função para mostrar ou ocultar os campos específicos para médicos
+            function toggleCamposMedico() {
+                if (tipoFuncionarioSelect.value === 'medico') {
+                    especialidadeField.classList.remove('hidden');
+                    crmField.classList.remove('hidden');
+                } else {
+                    especialidadeField.classList.add('hidden');
+                    crmField.classList.add('hidden');
+                }
+            }
+
+            // Chamar a função quando o valor do select mudar
+            tipoFuncionarioSelect.addEventListener('change', toggleCamposMedico);
+
+            // Chamar a função inicialmente para garantir que os campos estejam corretos
+            toggleCamposMedico();
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const successParam = urlParams.get('success');
+            console.log(successParam, 'alterado por último');
+
+            if (successParam === 'true') {
+                console.log(successParam, 'dentro do if');
+                const successMessage = document.querySelector('.success-message');
+                successMessage.classList.remove('hide');
+                successMessage.classList.add('show'); // classe para mostrar a mensagem
+
+                setTimeout(() => {
+                    successMessage.classList.remove('show'); // classe que remove a mensagem (div)
+                    successMessage.classList.add('hide');
+                }, 2000); // 5 segundos
+            }
+        });
+        
+        document.getElementById('cep').addEventListener('input', function () {
+            const cep = this.value;
+
+            if (cep.length !== 9) {
+                return;
+            }
+
+            buscaEndereco(cep);
+        });
+
+        function buscaEndereco(cep) {
+            fetch(`../php/buscaEndereco.php?cep=${cep}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao buscar o endereço');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                    } else {
+                        // Preenche os campos do formulário com os dados retornados pelo PHP
+                        document.getElementById('logradouro').value = data.logradouro || '';
+                        document.getElementById('cidade').value = data.cidade || '';
+                        document.getElementById('estado').value = data.estado || '';
+                        console.log('Endereço cadastrado com sucesso!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+
+body {
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background-image: url("../images/login/backgroundLogin.jpg");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+form {
+    width: 30vw;
+    height: 100%;
+    background-color: rgb(255, 255, 255,0.85);
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+form img{
+    margin: 0 auto;
+    width: 55%;
+    margin: 10% 10%;
+}
+
+.material-symbols-outlined{
+    vertical-align: middle;
+    padding: 4px;
+}
+
+.loginFields {
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+form p {
+    font-size: 14px;
+    text-align: center;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid gray;
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 16px; 
+    color: #333; 
+}
+
+p{
+    font-family: "League Spartan", sans-serif;
+}
+
+input[type="submit"]{
+    background-color: rgb(41, 42, 44);
+    color: white;
+    font-size: large;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover{
+    background-color: #245276;
+}
+
+input:focus{
+    box-shadow: 0 0 10px #333;
+}
+
+#error-message{
+    color: red;
+    font-family: "League Spartan", sans-serif;
+    text-align: center;
+    font-size: 13px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    padding: 20px 0px 10px;
+    position: fixed;
+    width: 100%;
+    height: 10px;
+}
+
+footer p{
+    font-size: medium;
+    text-align: center;
+}
+
+@media (max-width:900px) {
+    form{
+        width: 100%;
+        justify-content: center;
+    }
+    form img{
+        width: 30%;
+    }
+}

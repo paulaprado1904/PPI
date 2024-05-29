@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotação de Ações</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #resultado {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Cotação de Ações</h1>
+    <form id="formulario">
+        <label for="codigo">Digite as 5 letras do código da ação:</label>
+        <input type="text" id="codigo" maxlength="7">
+    </form>
+    <div id="resultado"></div>
+
+    <script>
+        // Função para buscar a cotação da ação
+        function buscarCotacao(codigo) {
+            // URL da API de cotação de ações
+            const apiUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${codigo}.SA&apikey=QLJF4NP4E8URVKUT`;
+
+            // Realiza a requisição
+            fetch(apiUrl)
+                .then(response => {
+                    // Verifica se a requisição foi bem sucedida
+                    if (!response.ok) {
+                        throw new Error('Não foi possível obter a cotação da ação.');
+                    }
+                    // Retorna os dados em formato JSON
+                    return response.json();
+                })
+                .then(data => {
+                    // Exibe a cotação no elemento com ID "resultado"
+                    const quote = data["Global Quote"];
+                    const price = quote["05. price"];
+                    document.getElementById('resultado').innerText = `Cotação da ação ${codigo}: ${price}`;
+                })
+                .catch(error => {
+                    // Exibe mensagem de erro em caso de falha na requisição
+                    document.getElementById('resultado').innerText = `Erro: ${error.message}`;
+                });
+        }
+
+        // Função para lidar com o evento de digitação no campo de input
+        function handleInput(event) {
+            const codigo = event.target.value.trim();
+            // Verifica se o código digitado tem 5 caracteres
+            if (codigo.length === 5) {
+                // Chama a função para buscar a cotação da ação
+                buscarCotacao(codigo);
+            } else {
+                // Limpa o resultado se o código não tiver 5 caracteres
+                document.getElementById('resultado').innerText = '';
+            }
+        }
+
+        // Adiciona um listener para o evento de input no campo de input
+        document.getElementById('codigo').addEventListener('input', handleInput);
+    </script>
+</body>
+
+</html>

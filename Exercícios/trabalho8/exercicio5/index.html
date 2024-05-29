@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercicio 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main>
+        <h1>A FACOM</h1>
+        <p>A Faculdade de Computação (FACOM) da
+            Universidade Federal de Uberlândia foi criada em 2000,
+            a partir do extinto Departamento de Informática (DEINF), criado em 19
+
+        <p>No início dos anos 2000 foi criado na Faculdade o Programa de Pós-Gr
+            Ciência da Computação .</p>
+
+        <button type="button" id="btnOpenModal">Abrir Modal</button>
+    </main>
+
+    <div id="modalTeste" class="modal">
+
+        <div class="modalContent">
+            <h2>Olá! Seja bem vindo !</h2>
+            <button class="buttonClose">Ok</button>
+        </div>
+    </div>
+    <script>
+
+        // A função é executada quando a janela HTML e seus recursos foram carregados
+        window.onload = function () {
+            // Obtém a referência para o elemento com a classe "modal" que representa o modal
+            const modal = document.querySelector(".modal");
+
+            // Obtém a referência para o botão de fechar o modal dentro do modal
+            const buttonClose = modal.querySelector(".buttonClose");
+
+            // Adiciona um ouvinte de evento de clique ao botão de fechar o modal
+            buttonClose.addEventListener("click", function () {
+                // Define o estilo de exibição do modal como 'none' para ocultá-lo quando o botão de fechar é clicado
+                modal.style.display = 'none';
+            });
+
+            // Obtém a referência para o botão que abre o modal pelo seu ID "btnOpenModal"
+            const buttonOpenModal = document.getElementById("btnOpenModal");
+
+            // Adiciona um ouvinte de evento de clique ao botão que abre o modal
+            buttonOpenModal.addEventListener("click", function () {
+                // Define o estilo de exibição do modal como 'block' para exibi-lo quando o botão de abrir é clicado
+                modal.style.display = 'block';
+            });
+        }
+
+    </script>
+</body>
+
+</html>

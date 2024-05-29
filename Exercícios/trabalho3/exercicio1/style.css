@@ -1,0 +1,26 @@
+body {
+    background-color: gray;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #444;
+    line-height: 1.5;
+    width: 60%;
+    margin: 0 auto;
+    padding: 2% 0;
+}
+
+main {
+    background-color: white;
+    border-radius: 10px;
+}
+
+h1,h2,h3 {
+    color: rgb(140, 76, 8);
+    padding: 10px;
+}
+
+section {
+    margin-top: 0px;
+    padding-bottom: 5px;
+    border-top: solid 1px gray;
+    padding: 10px;
+}

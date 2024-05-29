@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Clinica ABC</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body> <!--      Corpo do documento -->
+    <main>
+        <h1>Clinica ABC Health</h1> <!--      Início do documento HTML -->
+        <ul>
+            <li> <a href="index.html">Home</a></li>
+            <li> <a href="galeria.html">Galeria</a></li>
+            <li> <a href="cadastro.html">Cadastro</a></li>
+        </ul>
+        <section>
+            <h1>Cadastro</h1>
+            <h2 class="tituloDestacado">Dados Pessoais</h2>
+            <form action="cadastraCliente.php" method="post">
+                <div>
+                    <label for="nome">Nome: </label>
+                    <input type="text" id="nome" name="nome" placeholder required autofocus minlength="2"
+                        maxlength="50">
+                    <span></span>
+                </div>
+                <div>
+                    <label for="email">E-mail: </label>
+                    <input type="email" id="email" name="email" required>
+                    <span></span>
+                </div>
+                <div>
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
+                    <span></span>
+                </div>
+
+                <div>
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" name="idade" required>
+                    <span></span>
+                </div>
+                <div>
+                    <label for="tel">Telefone:</label>
+                    <input type="tel" id="tel" name="tel" pattern="[0-9]+" required>
+                    <span></span>
+                </div>
+                <div>
+                    <label for="date">Data de Nascimento:</label>
+                    <input type="date" id="date" name="date">
+                    <span></span>
+                </div>
+                <fieldset>
+                    <legend>Sexo</legend>
+                    <div>
+                        <input type="radio" id="feminino" name="sexo" value="feminino">
+                        <label for="feminino">Feminino</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="masculino" name="sexo" value="masculino">
+                        <label for="masculino">Masculino</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Estado Civil</legend>
+                    <div>
+                        <input type="radio" id="solteiro" name="estadocivil" value="solteiro">
+                        <label for="solteiro">Solteiro</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="casado" name="estadocivil" value="casado">
+                        <label for="casado">Casado</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="divorciado" name="estadocivil" value="divorciado">
+                        <label for="divorciado">Divorciado</label>
+                    </div>
+                </fieldset>
+                <div>
+                    <label for="dataHoraAtual">Data e Hora Atual:</label>
+                    <input type="text" id="dataHoraAtual" name="dataHoraAtual" readonly value="DATA ATUAL">
+                </div>
+
+                <h2 class="tituloDestacado">Endereço de Entrega</h2>
+                <div>
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" pattern="[0-9]" required>
+                    <span></span>
+                </div>
+                <p><label>Tipo de Logradouro:
+                        <select name="tipoend" required>
+                            <option value="" selected>Selecione</option>
+                            <option value="rua">Rua</option>
+                            <option value="avenida">Avenida</option>
+                            <option value="praça">Praça</option>
+                        </select></label></p>
+
+                <div>
+                    <label for="end">Logradouro: </label>
+                    <input type="text" id="end" name="end" required>
+                    <span></span>
+                </div>
+
+                <div>
+                    <label for="bai">Bairro: </label>
+                    <input type="text" id="bai" name="bai" required>
+                    <span></span>
+                </div>
+
+                <div>
+                    <label for="cid">Cidade: </label>
+                    <input type="text" id="cid" name="cid" required>
+                    <span></span>
+                </div>
+
+                <p><label>Estado:
+                        <select id="UF" name="UF">
+                            <option value="">Selecione</option>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MS">MS</option>
+                            <option value="MT">MT</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SP">SP</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
+                        </select></label></p>
+
+
+                <h2 class="tituloDestacado">Informações Adicionais</h2>
+                <fieldset>
+                    <legend>Hobbies de Interesse</legend>
+                    <div>
+                        <input type="checkbox" id="cinema" name="interesses[]" value="cinema">
+                        <label for="cinema">Cinema</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="filmser" name="interesses[]" value="filmser">
+                        <label for="filmser">Filmes e Séries</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="games" name="interesses[]" value="games">
+                        <label for="games">Games</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="viagem" name="interesses[]" value="viagem">
+                        <label for="viagem">Viagens</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="informatica" name="interesses[]" value="informatica">
+                        <label for="informatica">Informática</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="moda" name="interesses[]" value="moda">
+                        <label for="moda">Moda</label>
+                    </div>
+                </fieldset>
+                <textarea name="t" rows="30" cols="100">Informações Complementares
+        </textarea>
+                <p>Anexar foto de perfil</p>
+                <input type="file" accept=".png, .jpg, .jpeg">
+                <input type="hidden" id="token" name="token" value="1234567890">
+
+                <p><button>Enviar</button></p>
+            </form>
+        </section>
+
+<footer>
+    <address>10880 Malibu Point, Malibu, Califórnia</address>
+</footer>
+</main>
+</body>
+
+
+
+
+
+
+</html>

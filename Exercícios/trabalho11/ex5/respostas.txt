@@ -1,0 +1,42 @@
+Exercício 5
+
+c)
+
+i. Qual foi o código de status retornado?
+
+Quando o CEP 38400-100 é inserido, o código de status retornado é 200, indicando que a requisição foi bem-sucedida.
+
+ii. Qual o valor do cabeçalho Content-Type da resposta HTTP? Por quê?
+
+O valor do cabeçalho Content-Type da resposta HTTP é 'text/plain' porque o servidor está respondendo com um texto simples (nome da cidade).
+
+iii. Qual o valor recebido no corpo da resposta HTTP (aba Response)?
+
+No corpo da resposta HTTP, é recebido o nome da cidade correspondente ao CEP passado (Uberlândia).
+
+iv. Qual o valor do cabeçalho Server da resposta HTTP?
+
+O valor do cabeçalho Server da resposta HTTP é 'Apache'.
+
+v. A requisição HTTP possui o cabeçalho Content-Type? Por quê?
+
+Não, porque a requisição está sendo feita usando XMLHttpRequest, assim, o navegador não define automaticamente o cabeçalho Content-Type.
+
+d) Insira o CEP 38400-500 e observe novamente os cabeçalhos da respectiva resposta HTTP.
+Responda as perguntas enumeradas no item anterior, porém no contexto da nova requisição.
+
+Ao inserir o CEP 38400-500: O código retornado é 404; 
+
+e) Simule um erro no script PHP removendo o fecha parênteses do primeiro if. Envie o script
+com o erro para o servidor e repita a busca usando o CEP 38400-100. Qual foi o código de
+status retornado? E o conteúdo do corpo da resposta HTTP?
+
+O código de status retornado foi 500 (Internal Server Error), e o corpo da resposta veio uma mensagem de erro.
+
+f) No infinityfree, acesse o Accounts → Sua Conta → Control Panel → Alter PHP Config → Alter
+PHP Directives e altere a opção Display Errors para on. Repita o teste realizado no item
+anterior e observe o resultado. O que mudou? Qual foi o código de status retornado? O que
+foi retornado no corpo da resposta HTTP? Em qual situação essa configuração seria útil? Em
+qual situação ela jamais deveria ser utilizada?
+
+Quando a opção é alterada para on, os erros PHP são exibidos no navegador, facilitando a depuração de problemas no código PHP. Não deve ser utilizada em um ambiente de produção para evitar que detalhes sensíveis sobre a aplicação sejam expostos aos usuários finais.

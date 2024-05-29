@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+
+body {
+    background-color: #245276;
+    box-sizing: border-box;
+    margin: 0 auto;
+    font-family: "League Spartan", sans-serif;
+}
+
+main {
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.agendamento-container{
+    width: 50%;
+    margin-top: 50px;
+}
+
+@media (max-width: 900px) {
+    .agendamento-container{
+        width: 80%;
+    }
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+form p {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+}
+
+input[type="submit"] {
+    background-color: #245276;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #129383;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    padding: 20px 0px 10px;
+    position: static; 
+    width: 100%;
+    height: 10px;
+}
+
+footer p{
+    font-size: medium;
+    text-align: center;
+}
+
+.options {
+    display: flex;
+    height: 6vh;
+    align-items: center;
+}
+
+
+.label_options {
+    margin-left: 8px; 
+    margin-top: 0; /* Resetar a margem superior */
+    margin-bottom: 0; /* Resetar a margem inferior */
+}
+
+input[type="radio"] {
+    margin: 0; /* Resetar todas as margens */
+    vertical-align: middle; /* Alinhar verticalmente */
+}
+
+/* Estilizando as opções de especialidade */
+select[name="especialidade"] option, #especialidade, select[name="nome_medico"] option, #nome_medico {
+    background-color: #fff; /* Cor de fundo */
+    color: #333; /* Cor do texto */
+    font-family: "League Spartan", sans-serif;/* Fonte */
+    font-size: 14px; /* Tamanho da fonte */
+    padding: 5px 10px; /* Espaçamento interno */
+}
+
+.success-message {
+    position: fixed;
+    top: 185px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #5959da ;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0 0 5px 5px #7b96aa;
+}
+
+.success-message.show {
+    display: block;
+}
+.success-message.hide {
+    display: none;
+}

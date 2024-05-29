@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Galeria - Prime Care</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/navBar.css">
+    <link rel="stylesheet" href="./css/galeria_style.css">
+    <link rel="icon" href="./images/logo-semfundo.png">
+</head>
+
+<body>
+
+
+    <header>
+        <div class="center">
+        <div class="logo"><a href="index.html"><img src="images/logo.png" alt="Logo Clínica Médica"></a></div>
+        <div class="hamburger-container">
+            <div class="hamburger-menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+            <nav class="index">
+                <a href="index.html">Home</a>
+                <a class="active" href="galeria.html">Galeria</a>
+                <a href="agendamento.html">Agendamento</a>
+                <a href="novoEnd.html">Novo Endereço</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Galeria</h1>
+        <div class="galeria">   
+           
+            <div class="container">
+                <a href="./galeriaLinks/medicos.html">
+                <div class="title">Equipe Médica</div>
+                <img src="./images/galeria/fotomedic.jpg" alt="Time Médico" class="image">
+                </a>
+            </div>
+            
+            <div class="container">
+                <a href="./galeriaLinks/labs.html">
+                <div class="title">Laboratórios</div>
+                <img src="./images/galeria/fotolabs.jpg" alt="Time Médico" class="image">
+                </a>
+            </div>
+            <div class="container" >
+                <a href="./galeriaLinks/consult.html">
+                <div class="title">Consultórios </div>
+                <img src="./images/galeria/fotoconsult.jpg" alt="Time Médico" class="image">
+                </a>
+            </div>
+            <div class="container">
+                <a href="./galeriaLinks/recep.html">
+                <div class="title">Recepção</div>
+                <img src="./images/galeria/fotorecp.jpg" width="150" height="150" alt="Time Médico" class="image">
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Clinica PrimeCare - Logo designed by Freepik</p>
+    </footer>
+    <script>
+        document.querySelector('.hamburger-menu').addEventListener('click', function() {
+            var nav = document.querySelector('nav');
+            if (nav.classList.value.indexOf('open') !== -1) {
+                nav.classList.remove('open');
+            } else {
+                nav.classList.add('open');
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Encadeando requisições assíncronas</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.5rem;
+      background-color: #ddd;
+      color: #555;
+      margin: 0;
+    }
+
+    main {
+      width: 60%;
+      margin: 0;
+      padding: 2% 4%;
+      background-color: #eee;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    h1 {
+      font-size: 5rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <h2>Temperatura Local: <span id="temp">...</span></h2>
+    <h2>Velocidade do Vento: <span id="wind">...</span></h2>
+  </main>
+  <script>
+    function buscaClimaLocal() {
+      // Primeira requisição para obter dados de localização do IP do usuário
+      fetch('https://ipapi.co/json/')
+        // Transforma a resposta em JSON
+        .then(response => response.json())
+        // Usa os dados de localização para fazer uma segunda requisição para obter o clima
+        .then(data => fetch(`https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&current_weather=true`))
+        // Transforma a resposta da segunda requisição em JSON
+        .then(response => response.json())
+        // Utiliza os dados do clima para atualizar o conteúdo das tags HTML com os IDs "temp" e "wind"
+        .then(data => {
+          document.getElementById("temp").textContent = data.current_weather.temperature + '°';
+          document.getElementById("wind").textContent = data.current_weather.windspeed + ' km/h';
+        })
+        // Captura e trata quaisquer erros que possam ocorrer durante o processo de busca do clima
+        .catch(error => console.log(error));
+    }
+
+    // Quando a janela é completamente carregada, chama a função para buscar o clima local
+    window.onload = function () {
+      buscaClimaLocal();
+    }
+  </script>
+
+</body>
+
+</html>

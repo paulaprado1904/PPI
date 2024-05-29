@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem Meus Agendamentos</title>
+    <!-- Incluindo Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/listagens_style.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="cad_funcionarios.html" class="btn btn-light">Novo Funcionário</a></li>
+            <li><a href="cad_pacientes.html" class="btn btn-light">Novo Paciente</a></li>
+            <li><a href="list_funcionarios.html" class="btn btn-light">Listar Funcionários</a></li>
+            <li><a href="list_pacientes.html" class="btn btn-light">Listar Pacientes</a></li>
+            <li><a href="list_enderecos.html" class="btn btn-light">Listar Endereços</a></li>
+            <li><a href="list_agendamentos.html" class="btn btn-light">Listar todos Agendamentos</a></li>
+            <li><a href="list_agendamento_domedico.html" class="btn btn-light">Listar meus Agendamentos</a></li>
+        </ul>
+    </nav>
+
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Listagem Meus Agendamentos</h2>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table id="agendamentosTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Sexo</th>
+                                <th>E-mail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Agendamentos serão adicionados aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+       fetch('list_agendamento_domedico.php')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao obter os agendamentos');
+      }
+      return response.json();
+    })
+    .then(agendamentos => {
+      const tableBody = document.querySelector('table tbody');
+      tableBody.innerHTML = '';
+  
+      agendamentos.forEach(agendamento => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${agendamento.nome}</td>
+          <td>${agendamento.data}</td>
+          <td>${agendamento.horario}</td>
+          <td>${agendamento.sexo}</td>
+          <td>${agendamento.email}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Erro:', error.message);
+    });
+    </script>
+</body>
+
+</html>
